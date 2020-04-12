@@ -1,105 +1,90 @@
-<!DOCTYPE html>
+﻿<!doctype html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title>视频播放器</title>
-	<link rel="stylesheet" href="./css/font-awesome.css">
-	<link rel="stylesheet" href="css/player.css">
+    <meta charset="UTF-8">
+    <title>Darren and Clover</title>
 </head>
 <body>
-    <figcaption>视频播放器</figcaption>
-    <div class="player">
-        <video src="./video/fun.mp4"></video>
-        <!-- 底部控制栏 -->
-        <div class="controls">
-            <!-- 播放/暂停 -->
-            <a href="javascript:;" class="switch fa fa-play"></a>
-            <!-- 全屏 -->
-            <a href="javascript:;" class="expand fa fa-expand"></a>
-            <!-- 进度条 -->
-            <div class="progress">
-                <div class="line"></div>
-                <div class="bar"></div>
-            </div>
-            <!-- 时间 -->
-            <div class="timer">
-                <span class="current">00:00:00</span> /
-                <span class="total">00:00:00</span>
-            </div>
-            <!-- 声音 -->
-        </div>
-    </div>
-    <div id="comments-wraper">
-        <input type="text" name="comments" id="txt" placeholder="发表弹幕"/>
-        <input type="button" id="btn" value="发表" />
-    </div>
-    
-	<script src="./js/jquery.min.js"></script>
-    <script>
-        // 封装格式化时间函数
-        var formatTime = function (time) {
-        	h = Math.floor(time / 3600);
-        	m = Math.floor(time % 3600 / 60);
-        	s = Math.floor(time % 3600);
-        	if(h < 10){
-        		h = "0" + h;
-        	};
-        	if(m < 10){
-        		m = "0" + m;
-        	}
-        	if(s < 10){
-        		s = "0" + s;
-        	}
-        	return h + ":" + m + ":" + s;
-        }
-        
-        // 获取视频播放区域
-        var video = document.querySelector("video");
-        // 当视频可以播放时，触发视频播放区域显示函数，覆盖菊花加载背景图
-        video.addEventListener('canplay', function () {
-            video.style.display = "block"; 
-            
-            // 获取并格式化总播放时间
-            var total = formatTime(video.duration);
-            $(".total").text(total);
-        })
-        
-        // 获取并格式化当前播放时间
-        video.ontimeupdate = function(){
-            var current = formatTime(video.currentTime);
-            $(".current").text(current);
-        }
-        
-        // 获取播放/暂停按钮。
-        var btnLeft = $(".switch")[0];
-        // 暂停时，点击播放；播放时，点击暂停。
-        btnLeft.addEventListener('click', function () {
-            if(video.paused){
-                video.play();
-            } else {
-                video.pause();
-            }
-			$(this).toggleClass('fa-play fa-pause');
-        })
-        
-        // 获取全屏/缩小按钮
-        var btnRight = $(".expand")[0];
-        // 缩小时，点击全屏；全屏时，点击缩小
-        btnRight.addEventListener('click', function () {
-            if(document.fullscreen){
-                document.cancelFullScreen();
-            } else {
-                video.webkitRequestFullScreen();
-            }
-        })
-        
-        var oBtn = $("#btn")[0];
-        oBtn.onclick = function () {
-            // 获取文本框内容和按钮
-            var oTxtValue = $("#txt").val()[0];
-            window.sessionStorage.setItem('comments', oTxtValue);
-        }
-        
-    </script>
+	<div align="center" style="background: whitesmoke; height: 35px; line-height: 35px;">Darren and Clover</div>
+	<p align="center">
+
+    <video id="videoID" controls="controls" style="height: 520px; width: 1024px; background: black;">
+        <source src="video/test.mp4" type="video/mp4" />
+    </video>
+    <br />
+<!--    <button id="con" onclick="btn()">开始/暂停 </button>-->
+
+	</p>
+<div align="center" style="background: whitesmoke; height: 20px; line-height: 20px;">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<body>
+<span id=localtime></span>
+<script type="text/javascript">
+function showLocale(objD)
+{
+ var str,colorhead,colorfoot;
+ var yy = objD.getYear();
+ if(yy<1900) yy = yy+1900;
+ var MM = objD.getMonth()+1;
+ if(MM<10) MM = '0' + MM;
+ var dd = objD.getDate();
+ if(dd<10) dd = '0' + dd;
+ var hh = objD.getHours();
+ if(hh<10) hh = '0' + hh;
+ var mm = objD.getMinutes();
+ if(mm<10) mm = '0' + mm;
+ var ss = objD.getSeconds();
+ if(ss<10) ss = '0' + ss;
+ var ww = objD.getDay();
+ if  ( ww==0 )  colorhead="<font color=\"#000000\">";
+ if  ( ww > 0 && ww < 6 )  colorhead="<font color=\"#373737\">";
+ if  ( ww==6 )  colorhead="<font color=\"#008000\">";
+ if  (ww==0)  ww="星期日";
+ if  (ww==1)  ww="星期一";
+ if  (ww==2)  ww="星期二";
+ if  (ww==3)  ww="星期三";
+ if  (ww==4)  ww="星期四";
+ if  (ww==5)  ww="星期五";
+ if  (ww==6)  ww="星期六";
+ colorfoot="</font>"
+ str = colorhead + yy + "-" + MM + "-" + dd + " " + hh + ":" + mm + ":" + ss + "  " + ww + colorfoot;
+ return(str);
+}
+function tick()
+{
+ var today;
+ today = new Date();
+ document.getElementById("localtime").innerHTML = showLocale(today);
+ window.setTimeout("tick()", 1000);
+}
+tick();
+</script>
+<br />
+</div>
+
 </body>
+<script type="text/javascript">
+    window.onload = function() {
+    var local1=document.getElementById('videoID');  //获取，函数执行完成后local内存释放
+    local1.autoplay = true; // 自动播放
+    local1.loop = true; // 循环播放
+    local1.muted=true; // 关闭声音，如果为false,视频无法自动播放
+    if(local1.paused){  //判断是否处于暂停状态
+    local1.play();  //开启播放
+    }else{
+    local1.pause();  //停止播放
+    }
+    }
+
+    function btn(){
+    var local=document.getElementById('videoID');  //获取，函数执行完成后local内存释放
+    if(local.paused){  //判断是否处于暂停状态
+    local.play();  //开启播放
+    }else{
+    local.pause();  //停止播放
+    }
+    }
+
+</script>
 </html>
